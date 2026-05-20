@@ -73,6 +73,42 @@
       mask-image: linear-gradient(to bottom, transparent, black 20%, black 78%, transparent);
     }
 
+    .cherry-blossom-container {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+      overflow: hidden;
+    }
+
+    .petal {
+      position: fixed;
+      width: 12px;
+      height: 12px;
+      background: radial-gradient(circle at 30% 30%, rgba(255, 200, 221, 0.9), rgba(255, 150, 190, 0.7));
+      border-radius: 50%;
+      pointer-events: none;
+      filter: drop-shadow(0 0 4px rgba(255, 182, 193, 0.5));
+      animation: petals-fall linear infinite;
+    }
+
+    @keyframes petals-fall {
+      0% {
+        transform: translateY(-100vh) translateX(0) rotateZ(0deg);
+        opacity: 1;
+      }
+      10% {
+        opacity: 1;
+      }
+      90% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(100vh) translateX(var(--drift)) rotateZ(360deg);
+        opacity: 0;
+      }
+    }
+
     .floating {
       position: fixed;
       font-size: clamp(30px, 5vw, 58px);
@@ -643,7 +679,7 @@
       body {
         background: #fff;
       }
-      .gingham, .floating, .panel, .rules, .toast {
+      .gingham, .floating, .panel, .rules, .toast, .petal {
         display: none !important;
       }
       .wrap {
@@ -662,6 +698,7 @@
   </style>
 </head>
 <body>
+  <div class="cherry-blossom-container" id="petalContainer"></div>
   <div class="gingham"></div>
   <div class="floating float-1">🐈‍⬛</div>
   <div class="floating float-2">🧺</div>
@@ -731,43 +768,50 @@
 
   <script>
     const bingoItems = [
-      ""I'm just vibing"",
-      "Trader Joe's snack",
+      ""I'm just vibin"",
+      "A Trader Joe's snack",
       "A cat photo is shown unsolicited",
       ""Wait, let me take a picture first"",
       "Someone starts ranking board games seriously",
       "Linen top/bottom",
       ""Gym"",
-      "Matcha",
+      ""Matcha"",
+      ""Queer"",
+      ""Nonbinary"",
       "Won a board/card game",
-      "Meet atleast 2 New Yorkers",
-      "Someone carrying Lactaid",
+      "Meet at least 2 New Yorkers",
+      "Meet someone vegetarian/vegan",
+      "Meet someone carrying Lactaid",
       "Someone mentions anime",
       "Someone uses the phrase "energy" as a noun",
-      "A drink in a cute bottle",
+      ""Brunch"",
       "A tote bag appears",
       ""I don't usually go outside"",
       "Someone accidentally trauma dumps a little",
       "Someone brings an Asian snack",
       ""N/W Train"",
-      ""Wedding"",
+      "Someone mentions a wedding this summer",
+      ""5K, run club, or running""
       ""Greek"",
+      "Find a May/June baby",
+      "Drink a BIG sip of water",
       "A conversation becomes weirdly philosophical",
-      ""just one more round"",
-      "Spot atleast 2 keychains on a bag",
+      ""one more round"",
+      "Spot at least 2 keychains on a bag",
       ""I saw this on TikTok or IG"",
       "Someone lies down dramatically on the blanket",
-      "Someone mentions ADHD",
-      "Someone makes a hyper-specific food recommendation",
+      "Someone mentions "ADHD"",
+      "Received a food recommendation",
       ""this would heal me"",
+      ""A 100 percent"",
       "Someone gets overly competitive",
-      "Someone brought an emotional support drink",
+      "Pet a dog or cat",
       "Someone pulls out sunscreen like the mom friend",
       ""software engineer"",
       ""Zohran"",
       ""AI"",
       "Meet someone allergic to a fruit",
-      "Someone brought a snack that needed an explanation"
+      "Someone brought a snack/drink that needed an explanation"
     ];
     
     const headers = ["🐾 B", "🧺 I", "🌷 N", "☁️ G", "🍓 O"];
@@ -781,6 +825,7 @@
     const statusText = document.getElementById("statusText");
     const winner = document.getElementById("winner");
     const toast = document.getElementById("toast");
+    const petalContainer = document.getElementById("petalContainer");
 
     let currentName = "Micah's Friend";
     let board = [];
@@ -969,6 +1014,35 @@
       }
     }
 
+    function createCherryBlossoms() {
+      // Create initial petals
+      for (let i = 0; i < 12; i++) {
+        createPetal();
+      }
+
+      // Continuously create new petals
+      setInterval(createPetal, 800);
+    }
+
+    function createPetal() {
+      const petal = document.createElement("div");
+      petal.className = "petal";
+      
+      const startX = Math.random() * 100;
+      const drift = (Math.random() - 0.5) * 100;
+      const duration = 8 + Math.random() * 6;
+      
+      petal.style.left = startX + "vw";
+      petal.style.top = "-20px";
+      petal.style.setProperty("--drift", drift + "px");
+      petal.style.animationDuration = duration + "s";
+      petal.style.animationDelay = Math.random() * 2 + "s";
+      
+      petalContainer.appendChild(petal);
+      
+      setTimeout(() => petal.remove(), (duration + 2) * 1000);
+    }
+
     generateBtn.addEventListener("click", () => generate(nameInput.value));
     randomBtn.addEventListener("click", () => generate(randomName()));
     resetBtn.addEventListener("click", resetChecks);
@@ -982,6 +1056,9 @@
     const url = new URL(window.location.href);
     const savedName = url.searchParams.get("name") || randomName();
     generate(savedName, false);
+
+    // Start cherry blossom animation
+    createCherryBlossoms();
 
   </script>
 </body>
