@@ -93,147 +93,6 @@
       50% { translate: 0 -12px; }
     }
 
-    /* Flower Petals Styles */
-    .petal {
-      position: fixed;
-      width: 18px;
-      height: 18px;
-      pointer-events: none;
-      z-index: 1;
-      opacity: 0.7;
-    }
-
-    .petal svg {
-      width: 100%;
-      height: 100%;
-      filter: drop-shadow(0 2px 4px rgba(80, 60, 70, .1));
-    }
-
-    .petal-1 {
-      animation: drift-1 20s linear infinite;
-    }
-
-    .petal-2 {
-      animation: drift-2 24s linear infinite;
-    }
-
-    .petal-3 {
-      animation: drift-3 22s linear infinite;
-    }
-
-    .petal-4 {
-      animation: drift-4 26s linear infinite;
-    }
-
-    .petal-5 {
-      animation: drift-5 21s linear infinite;
-    }
-
-    @keyframes drift-1 {
-      0% {
-        top: -30px;
-        left: 5%;
-        opacity: 0;
-        transform: rotate(0deg);
-      }
-      10% {
-        opacity: 0.7;
-      }
-      90% {
-        opacity: 0.7;
-      }
-      100% {
-        top: 100vh;
-        left: 12%;
-        opacity: 0;
-        transform: rotate(360deg);
-      }
-    }
-
-    @keyframes drift-2 {
-      0% {
-        top: -30px;
-        left: 18%;
-        opacity: 0;
-        transform: rotate(0deg);
-      }
-      10% {
-        opacity: 0.6;
-      }
-      90% {
-        opacity: 0.6;
-      }
-      100% {
-        top: 100vh;
-        left: 25%;
-        opacity: 0;
-        transform: rotate(360deg);
-      }
-    }
-
-    @keyframes drift-3 {
-      0% {
-        top: -30px;
-        left: 35%;
-        opacity: 0;
-        transform: rotate(0deg);
-      }
-      10% {
-        opacity: 0.65;
-      }
-      90% {
-        opacity: 0.65;
-      }
-      100% {
-        top: 100vh;
-        left: 42%;
-        opacity: 0;
-        transform: rotate(360deg);
-      }
-    }
-
-    @keyframes drift-4 {
-      0% {
-        top: -30px;
-        left: 52%;
-        opacity: 0;
-        transform: rotate(0deg);
-      }
-      10% {
-        opacity: 0.7;
-      }
-      90% {
-        opacity: 0.7;
-      }
-      100% {
-        top: 100vh;
-        left: 60%;
-        opacity: 0;
-        transform: rotate(360deg);
-      }
-    }
-
-    @keyframes drift-5 {
-      0% {
-        top: -30px;
-        left: 75%;
-        opacity: 0;
-        transform: rotate(0deg);
-      }
-      10% {
-        opacity: 0.65;
-      }
-      90% {
-        opacity: 0.65;
-      }
-      100% {
-        top: 100vh;
-        left: 82%;
-        opacity: 0;
-        transform: rotate(360deg);
-      }
-    }
-
     .wrap {
       width: min(1080px, calc(100vw - 24px));
       margin: 0 auto;
@@ -630,10 +489,6 @@
       .floating {
         opacity: .25;
       }
-
-      .petal {
-        opacity: 0.4;
-      }
     }
 
     @media (max-width: 540px) {
@@ -788,7 +643,7 @@
       body {
         background: #fff;
       }
-      .gingham, .floating, .panel, .rules, .toast, .petal {
+      .gingham, .floating, .panel, .rules, .toast {
         display: none !important;
       }
       .wrap {
@@ -812,42 +667,6 @@
   <div class="floating float-2">🧺</div>
   <div class="floating float-3">🎲</div>
   <div class="floating float-4">🍓</div>
-
-  <!-- Floating Flower Petals -->
-  <div class="petal petal-1">
-    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M12 3 Q15 8, 12 13 Q9 8, 12 3" fill="#e99ab8" opacity="0.8"/>
-      <circle cx="12" cy="12" r="2" fill="#c9779a"/>
-    </svg>
-  </div>
-
-  <div class="petal petal-2">
-    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M12 3 Q15 8, 12 13 Q9 8, 12 3" fill="#ffdce8" opacity="0.9"/>
-      <circle cx="12" cy="12" r="2" fill="#ff99b8"/>
-    </svg>
-  </div>
-
-  <div class="petal petal-3">
-    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M12 3 Q15 8, 12 13 Q9 8, 12 3" fill="#e99ab8" opacity="0.85"/>
-      <circle cx="12" cy="12" r="2" fill="#c9779a"/>
-    </svg>
-  </div>
-
-  <div class="petal petal-4">
-    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M12 3 Q15 8, 12 13 Q9 8, 12 3" fill="#ffb3d9" opacity="0.8"/>
-      <circle cx="12" cy="12" r="2" fill="#ff88bb"/>
-    </svg>
-  </div>
-
-  <div class="petal petal-5">
-    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M12 3 Q15 8, 12 13 Q9 8, 12 3" fill="#ffdce8" opacity="0.75"/>
-      <circle cx="12" cy="12" r="2" fill="#ff99b8"/>
-    </svg>
-  </div>
 
   <main class="wrap">
     <header>
@@ -1085,7 +904,7 @@
         showToast("BINGO! Main Character of the Picnic ✨");
 
   // Display the winner image dynamically
-        const winnerImage = document.getElementById("winnerImage");
+      const winnerImage = document.getElementById("winnerImage");
         winnerImage.src = "D1581512-A69D-4BE8-8CC8-F22959443C1F.png"; // Add the correct image path here
         winnerImage.style.display = "block";
       }
@@ -1159,9 +978,11 @@
       if (e.key === "Enter") generate(nameInput.value);
     });
 
-    const params = new URLSearchParams(window.location.search);
-    const paramName = params.get("name");
-    generate(paramName || "Picnic Friend", !paramName);
+    // Initialize board on page load
+    const url = new URL(window.location.href);
+    const savedName = url.searchParams.get("name") || randomName();
+    generate(savedName, false);
+
   </script>
 </body>
 </html>
