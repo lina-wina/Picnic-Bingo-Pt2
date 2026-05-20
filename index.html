@@ -73,6 +73,55 @@
       mask-image: linear-gradient(to bottom, transparent, black 20%, black 78%, transparent);
     }
 
+    .petal-container {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .petal {
+      position: absolute;
+      font-size: 24px;
+      opacity: 0.7;
+      animation: fall-petal linear infinite;
+      will-change: transform;
+    }
+
+    .petal:nth-child(1) { left: 5%; animation-duration: 8s; animation-delay: 0s; }
+    .petal:nth-child(2) { left: 12%; animation-duration: 10s; animation-delay: 1s; }
+    .petal:nth-child(3) { left: 22%; animation-duration: 9s; animation-delay: 2s; }
+    .petal:nth-child(4) { left: 32%; animation-duration: 11s; animation-delay: 0.5s; }
+    .petal:nth-child(5) { left: 42%; animation-duration: 8.5s; animation-delay: 1.5s; }
+    .petal:nth-child(6) { left: 52%; animation-duration: 9.5s; animation-delay: 0.2s; }
+    .petal:nth-child(7) { left: 62%; animation-duration: 10.5s; animation-delay: 2.5s; }
+    .petal:nth-child(8) { left: 72%; animation-duration: 8.2s; animation-delay: 1.2s; }
+    .petal:nth-child(9) { left: 82%; animation-duration: 9.8s; animation-delay: 0.8s; }
+    .petal:nth-child(10) { left: 92%; animation-duration: 10.2s; animation-delay: 1.8s; }
+
+    @keyframes fall-petal {
+      0% {
+        top: -30px;
+        opacity: 0.7;
+        transform: translateX(0) rotateZ(0deg);
+      }
+      10% {
+        opacity: 0.8;
+      }
+      50% {
+        opacity: 0.7;
+      }
+      90% {
+        opacity: 0.6;
+      }
+      100% {
+        top: 100vh;
+        opacity: 0;
+        transform: translateX(100px) rotateZ(360deg);
+      }
+    }
+
     .floating {
       position: fixed;
       font-size: clamp(30px, 5vw, 58px);
@@ -643,7 +692,7 @@
       body {
         background: #fff;
       }
-      .gingham, .floating, .panel, .rules, .toast {
+      .gingham, .floating, .petal-container, .panel, .rules, .toast {
         display: none !important;
       }
       .wrap {
@@ -662,6 +711,19 @@
   </style>
 </head>
 <body>
+  <div class="petal-container">
+    <div class="petal">🌷</div>
+    <div class="petal">🌷</div>
+    <div class="petal">🌷</div>
+    <div class="petal">🌷</div>
+    <div class="petal">🌷</div>
+    <div class="petal">🌷</div>
+    <div class="petal">🌷</div>
+    <div class="petal">🌷</div>
+    <div class="petal">🌷</div>
+    <div class="petal">🌷</div>
+  </div>
+
   <div class="gingham"></div>
   <div class="floating float-1">🐈‍⬛</div>
   <div class="floating float-2">🧺</div>
@@ -682,14 +744,14 @@
       <div class="controls">
         <div>
           <label for="playerName">Your picnic name</label>
-          <input id="playerName" placeholder="ex: Lina, Micah’s Favorite Human, Snack Goblin..." autocomplete="off" />
+          <input id="playerName" placeholder="ex: Lina, Micah's Favorite Human, Snack Goblin..." autocomplete="off" />
         </div>
         <button id="generateBtn">Generate My Board</button>
         <button id="randomBtn" class="secondary">Surprise Me</button>
       </div>
 
       <div class="status-row">
-        <div id="statusText">Enter a name for a personalized board, or tap “Surprise Me.”</div>
+        <div id="statusText">Enter a name for a personalized board, or tap "Surprise Me."</div>
         <div class="status-actions">
           <button id="shareBtn" class="ghost">Copy Link</button>
           <button id="resetBtn" class="ghost">Reset Checks</button>
@@ -703,7 +765,8 @@
     </section>
 
     <section id="winner" class="winner" aria-live="polite">
-      BINGO! You are officially the Main Character of the Picnic. ✨
+    BINGO! You are officially the Main Character of the Picnic. ✨
+    <img id="winnerImage" src="" alt="Winner Celebration" style="display: none; margin-top: 10px; max-width: 100%; border-radius: 12px;" />
     </section>
 
     <section class="rules" aria-label="How to play">
@@ -730,41 +793,41 @@
 
   <script>
     const bingoItems = [
-      "“I’m just vibing”",
-      "Trader Joe’s snack",
+      ""I'm just vibing"",
+      "Trader Joe's snack",
       "A cat photo is shown unsolicited",
-      "“Wait, let me take a picture first”",
+      ""Wait, let me take a picture first"",
       "Someone starts ranking board games seriously",
       "Linen top/bottom",
-      "“Gym”",
+      ""Gym"",
       "Matcha",
       "Won a board/card game",
       "Meet atleast 2 New Yorkers",
       "Someone carrying Lactaid",
       "Someone mentions anime",
-      "Someone uses the phrase “energy” as a noun",
+      "Someone uses the phrase "energy" as a noun",
       "A drink in a cute bottle",
       "A tote bag appears",
-      "“I don’t usually go outside”",
+      ""I don't usually go outside"",
       "Someone accidentally trauma dumps a little",
-      "Someone brings a niche Asian snack everyone becomes obsessed with",
-      "“N/W Train”",
-      "“Wedding”",
-      "“Greek”",
+      "Someone brings an Asian snack",
+      ""N/W Train"",
+      ""Wedding"",
+      ""Greek"",
       "A conversation becomes weirdly philosophical",
-      "“just one more round”",
+      ""just one more round"",
       "Spot atleast 2 keychains on a bag",
-      "“I saw this on TikTok or IG”",
+      ""I saw this on TikTok or IG"",
       "Someone lies down dramatically on the blanket",
       "Someone mentions ADHD",
       "Someone makes a hyper-specific food recommendation",
-      "“this would heal me”",
+      ""this would heal me"",
       "Someone gets overly competitive",
       "Someone brought an emotional support drink",
       "Someone pulls out sunscreen like the mom friend",
-      "“software engineer”",
-      "“Zohran”",
-      "“AI”",
+      ""software engineer"",
+      ""Zohran"",
+      ""AI"",
       "Meet someone allergic to a fruit",
       "Someone brought a snack that needed an explanation"
     ];
@@ -901,6 +964,11 @@
       if (hasBingo && announce) {
         confetti();
         showToast("BINGO! Main Character of the Picnic ✨");
+
+  // Display the winner image dynamically
+      const winnerImage = document.getElementById("winnerImage");
+        winnerImage.src = "D1581512-A69D-4BE8-8CC8-F22959443C1F.png"; // Add the correct image path here
+        winnerImage.style.display = "block";
       }
     }
 
