@@ -673,8 +673,7 @@
       <div class="kicker">🐾 Picnic Edition · Tap squares to play</div>
       <h1>B I N G O</h1>
       <p class="subtitle">
-        A cat-and-picnic themed bingo board for the emotionally supportive,
-        anime-loving, board-game-ranking, niche-snack-bringing friend group.
+        Thank you so much for supporting another one of ADHD project & for joining me today 💕 Hope this game will bring people closer or out of their comfort zone!
       </p>
       <div class="hero-emojis" aria-hidden="true">🐈‍⬛ 🧺 🍓 🎲 🌷</div>
     </header>
@@ -710,7 +709,7 @@
     <section class="rules" aria-label="How to play">
       <div class="rule">
         <strong>🌷 How to play</strong>
-        <span>Tap a square when it happens. Five in a row wins: across, down, or diagonal.</span>
+        <span>Tap a square when it happens OR if you hear someone say it. Five in a row wins: across, down, or diagonal.</span>
       </div>
       <div class="rule">
         <strong>🐈 Friend boards</strong>
@@ -824,7 +823,7 @@
       const seed = hashString(name.trim().toLowerCase() || "picnic friend");
       const shuffled = shuffleWithSeed(bingoItems, seed);
       const selected = shuffled.slice(0, 24);
-      selected.splice(12, 0, "FREE SPACE ☁️🐈");
+      selected.splice(12, 0, "FREE SPACE ☁️");
       return selected;
     }
 
@@ -921,8 +920,8 @@
     }
 
     function randomName() {
-      const starts = ["Snack", "Picnic", "Cat", "Soft", "Board Game", "Vibe", "Pastel", "Blanket", "Niche Snack", "Main Character"];
-      const ends = ["Goblin", "Fairy", "Gremlin", "Angel", "Champion", "Archivist", "Duchess", "Raccoon", "Sage", "Menace"];
+      const starts = ["Snack", "Picnic", "Baddie", "Spicy", "Cat", "Soft", "Board Game", "Vibe", "Pastel", "Blanket", "Niche Snack", "Main Character"];
+      const ends = ["Goblin", "Rat", "Fairy", "Gremlin", "Angel", "Champion", "Archivist", "Duchess", "Raccoon", "Sage", "Menace"];
       return starts[Math.floor(Math.random() * starts.length)] + " " + ends[Math.floor(Math.random() * ends.length)];
     }
 
