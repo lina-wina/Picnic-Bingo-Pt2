@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title> Picnic Bingo </title>
   <style>
     :root {
@@ -24,11 +24,6 @@
     }
 
     * { box-sizing: border-box; }
-
-    button,
-    input {
-      font-family: inherit;
-    }
 
     html {
       scroll-behavior: smooth;
@@ -132,7 +127,7 @@
       font-weight: 700;
       font-size: clamp(34px, 7vw, 82px);
       line-height: .88;
-      letter-spacing: -.06em;
+      letter-spacing: 0;
       color: #5e4754;
       text-shadow: 0 4px 0 rgba(255,255,255,.55);
     }
@@ -313,50 +308,48 @@
     .square {
       min-width: 0;
       width: 100%;
-      aspect-ratio: 1 / 1;
-      min-height: 96px;
+      min-height: clamp(78px, 14vw, 142px);
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: clamp(6px, 1.2vw, 12px);
+      padding: clamp(5px, 1.5vw, 10px);
       border-radius: 22px;
       border: 2px solid rgba(200, 155, 179, .64);
       background: rgba(255,255,255,.76);
       box-shadow: inset 0 2px 0 rgba(255,255,255,.95), 0 8px 20px rgba(87, 66, 77, .11);
       text-align: center;
       color: var(--ink);
-      line-height: 1.08;
-      font-size: clamp(11px, 1.5vw, 16px);
+      line-height: 1.12;
+      font-size: 15px;
       font-weight: 700;
       cursor: pointer;
       user-select: none;
       position: relative;
-      overflow: hidden;
+      touch-action: manipulation;
       transition: transform .12s ease, background .12s ease, border-color .12s ease, color .12s ease;
-    }
 
-    .square-text {
-      display: block;
-      width: 100%;
-      max-height: 100%;
-      overflow: hidden;
-      text-wrap: balance;
+      /* IMPORTANT: prevents mobile overflow from long bingo text */
       white-space: normal;
-      overflow-wrap: break-word;
+      overflow-wrap: anywhere;
       word-break: normal;
       hyphens: auto;
     }
 
-    .square.long-text {
-      font-size: clamp(10px, 1.3vw, 14px);
-      line-height: 1.03;
-      letter-spacing: -0.01em;
+    .square-label {
+      display: block;
+      width: 100%;
+      max-width: 100%;
+      text-wrap: balance;
     }
 
-    .square.extra-long-text {
-      font-size: clamp(9px, 1.15vw, 13px);
-      line-height: .98;
-      letter-spacing: -0.025em;
+    .square.is-long {
+      font-size: 13px;
+      line-height: 1.08;
+    }
+
+    .square.is-extra-long {
+      font-size: 12px;
+      line-height: 1.04;
     }
 
     .square:hover {
@@ -376,13 +369,6 @@
       background-repeat: no-repeat;
       border-color: #71bf93;
       color: var(--checked-text);
-    }
-
-    .square.checked .square-text {
-      padding: 3px 4px;
-      border-radius: 10px;
-      background: rgba(255,255,255,.78);
-      backdrop-filter: blur(2px);
     }
 
     .square.checked::after {
@@ -521,6 +507,19 @@
       .floating {
         opacity: .25;
       }
+
+      .square {
+        min-height: 104px;
+        font-size: 13px;
+      }
+
+      .square.is-long {
+        font-size: 11.5px;
+      }
+
+      .square.is-extra-long {
+        font-size: 10.5px;
+      }
     }
 
     @media (max-width: 540px) {
@@ -603,8 +602,8 @@
 
       .bingo-grid {
         grid-template-columns: repeat(5, minmax(0, 1fr));
-        gap: 3px;
-        margin-top: 18px;
+        gap: 4px;
+        margin-top: 25px;
       }
 
       .head-cell {
@@ -615,31 +614,23 @@
       }
 
       .square {
-        aspect-ratio: 1 / 1.08;
-        min-height: 70px;
+        min-height: 82px;
         border-radius: 11px;
         padding: 5px 3px;
-        font-size: clamp(8.8px, 2.55vw, 10.8px);
-        line-height: .98;
-        letter-spacing: -0.02em;
+        font-size: 10.5px;
+        line-height: 1.08;
+        letter-spacing: 0;
         border-width: 1.3px;
       }
 
-      .square.long-text {
-        font-size: clamp(7.8px, 2.22vw, 9.6px);
-        line-height: .96;
-        letter-spacing: -0.035em;
+      .square.is-long {
+        font-size: 9.2px;
+        line-height: 1.04;
       }
 
-      .square.extra-long-text {
-        font-size: clamp(7px, 2.02vw, 8.7px);
-        line-height: .93;
-        letter-spacing: -0.045em;
-      }
-
-      .square.checked .square-text {
-        padding: 2px;
-        border-radius: 7px;
+      .square.is-extra-long {
+        font-size: 8.3px;
+        line-height: 1.02;
       }
 
       .square.checked::after {
@@ -676,20 +667,18 @@
       }
 
       .square {
-        aspect-ratio: 1 / 1.14;
-        min-height: 64px;
-        font-size: clamp(8px, 2.5vw, 9.6px);
+        min-height: 76px;
+        font-size: 9.4px;
         padding: 4px 2px;
         border-radius: 9px;
       }
 
-      .square.long-text {
-        font-size: clamp(7.2px, 2.08vw, 8.4px);
+      .square.is-long {
+        font-size: 8.4px;
       }
 
-      .square.extra-long-text {
-        font-size: clamp(6.6px, 1.9vw, 7.7px);
-        line-height: .92;
+      .square.is-extra-long {
+        font-size: 7.8px;
       }
 
       .head-cell {
@@ -925,14 +914,13 @@
         square.className = "square";
         square.setAttribute("aria-pressed", checked.has(i) ? "true" : "false");
 
-        const textSpan = document.createElement("span");
-        textSpan.className = "square-text";
-        textSpan.textContent = text;
-        square.appendChild(textSpan);
+        const lengthClass = squareLengthClass(text);
+        if (lengthClass) square.classList.add(lengthClass);
 
-        const textLength = text.replace(/[“”'"\s]/g, "").length;
-        if (textLength > 28) square.classList.add("long-text");
-        if (textLength > 42) square.classList.add("extra-long-text");
+        const label = document.createElement("span");
+        label.className = "square-label";
+        label.textContent = text;
+        square.appendChild(label);
 
         if (i === 12) square.classList.add("free");
         if (checked.has(i)) square.classList.add("checked");
@@ -950,6 +938,13 @@
       });
 
       checkBingo(false);
+    }
+
+    function squareLengthClass(text) {
+      const compactText = text.replace(/\s+/g, " ").trim();
+      if (compactText.length >= 42) return "is-extra-long";
+      if (compactText.length >= 30) return "is-long";
+      return "";
     }
 
     function checkBingo(announce) {
@@ -1052,9 +1047,6 @@
     nameInput.addEventListener("keydown", e => {
       if (e.key === "Enter") generate(nameInput.value);
     });
-
-    const startingParams = new URLSearchParams(window.location.search);
-    generate(startingParams.get("name") || currentName, false);
 
   </script>
 </body>
